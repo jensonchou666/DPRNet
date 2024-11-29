@@ -18,7 +18,7 @@ class SegNet(EncoderDecoder):
         super().__init__(backbone, decoder)
 
 
-def get_network2(cfg):
+def get_network(cfg):
     net = SegNet(decoder_args=decoder_args)
     from jscv.utils.load_checkpoint import load_checkpoint
     load_checkpoint(net.backbone, net.backbone_ckpt_path, net.backbone_prefix)

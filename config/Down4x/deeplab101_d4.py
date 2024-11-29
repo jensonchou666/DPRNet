@@ -3,7 +3,7 @@ from config.Down4x.r101_d4 import *
 model_name = 'deeplab101_d4'
 
 
-def get_network2(cfg):
+def get_network(cfg):
     from jscv.hr_models.deeplabv3 import Deeplabv3
     
     net = Deeplabv3(cfg.backbone_name, decoder_args=cfg.decoder_args,

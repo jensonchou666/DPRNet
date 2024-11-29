@@ -22,7 +22,7 @@ class PVTSegNet(EncoderDecoder):
         decoder = decoder_class(l_chs, **decoder_args)
         super().__init__(backbone, decoder)
 
-def get_network2(cfg):
+def get_network(cfg):
     net = PVTSegNet(backbone_name, decoder_args=decoder_args)
     from jscv.utils.load_checkpoint import load_checkpoint
     load_checkpoint(net.backbone, ckpt_path)
