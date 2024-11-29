@@ -24,42 +24,42 @@ which is mainly used for semantic segmentation training.
 .
 |-- config
 |   |-- DPRNet
-|   |   |-- DPRNet_GR101_LR18.py  (main config)
-|   |   `-- DPRNet_pvt_LR18.py  (replace backbone)
+|   |   |-- DPRNet_GR101_LR18.py    (main config)
+|   |   `-- DPRNet_pvt_LR18.py      (replace backbone)
 |   |-- datasets
-|   |   `-- GID_Water.py        (dataset config)
+|   |   `-- GID_Water.py            (dataset config)
 |   `-- repair_dataset
-|       `-- ex_PTDR.py          (dataset repair config)
+|       `-- ex_PTDR.py              (dataset repair config)
 |   |-- _base_
-|   |-- Down4x                  (Downsample Models)
+|   |-- Down4x                      (Downsample Models)
 |-- data
-|   `-- gid_water               (Gaofen-2 water-seg)
+|   `-- gid_water                   (Gaofen-2 water-seg)
 |       |-- train
-|       |   |-- image           (train-images)
-|       |   `-- label           (train-label)
+|       |   |-- image               (train-images)
+|       |   `-- label               (train-label)
 |       `-- val
-|           |-- image           (val-images)
-|           `-- label           (val-label)
+|           |-- image               (val-images)
+|           `-- label               (val-label)
 |-- jscv
-|   |-- backbone                (verious backbone)
-|   |-- datasets                (dataset base code)
+|   |-- backbone                    (verious backbone)
+|   |-- datasets                    (dataset base code)
 |   |   `-- gid_water.py
 |   |-- hr_models
 |   |   |-- base_models.py
-|   |   `-- pathes_segmentor.py (Normal UHR model)
-|   |   |-- DPRNet.py  <-------- DPRNet model code
+|   |   `-- pathes_segmentor.py     (Normal UHR model)
+|   |   |-- DPRNet.py            <--- DPRNet model code
 |   |-- losses
 |   `-- utils
 |       |-- load_checkpoint.py
-|       |-- logger.py   (Draw indicator table)
-|       `-- trainer.py  (Trainer,Evaluator,SaveCkpt)
+|       |-- logger.py               (Draw indicator table)
+|       `-- trainer.py              (Trainer,Evaluator,SaveCkpt)
 |-- usefultools
 |   `-- handle_dataset
-|       `-- GID         (Processing Gaofen-2)
+|       `-- GID                     (Processing Gaofen-2)
 |-- work_dir
     `-- GID_Water
         `-- DPRNet_pvt_LR18-e80
-            `-- version_0       (Save Training files)
+            `-- version_0           (Save Training files)
 |-- pretrain
 |-- easytrain.sh
 `-- train.py
@@ -76,11 +76,9 @@ resnet101: <https://download.pytorch.org/models/resnet101-63fe2227.pth>
 
 #### Not necessary:
 
-pvt_v2_b1.pth
-<https://github.com/whai362/PVTv2-Seg/blob/master/configs/sem_fpn/PVTv2/fpn_pvtv2_b1_ade20k_40k.py>
+pvt_v2_b1.pth <https://github.com/whai362/PVTv2-Seg/blob/master/configs/sem_fpn/PVTv2/fpn_pvtv2_b1_ade20k_40k.py>
 
-focalnet_small_lrf.pth
-<https://github.com/microsoft/FocalNet/releases/download/v1.0.0/focalnet_small_lrf.pth>
+focalnet_small_lrf.pth <https://github.com/microsoft/FocalNet/releases/download/v1.0.0/focalnet_small_lrf.pth>
 
 Put them in directory: `./pretrain/`
 
@@ -113,7 +111,10 @@ python usefultools/handle_dataset/GID/create_train_val.py data/gid_water_merged 
 
 ---
 
-1. In Linux OS. Create anaconda environment: `conda create -n DPRNet python=3.7`
+1. In Linux OS. Create anaconda environment: 
+```aiignore
+conda create -n DPRNet python=3.7
+```
 2. `conda activate DPRNet`
 3. Install torch, torchvision:
 ```
@@ -159,8 +160,6 @@ Put it in background, print and error are in `./work_dir/STD_LOG/last-{GPU-ID}.t
 
 ```aiignore
 ./easytrain.sh @ {GPU-ID} {cfg} -c {cfg} {other_args} &
-#eg.
-./easytrain.sh @ 1 {cfg} -c {cfg} &           # CUDA_VISIBLE_DEVICES=1
 ```
 
 ### Another training mode (recommend)
@@ -177,6 +176,7 @@ Suppose your trained weight file (Just few epochs) is:
 `work_dir/GID_Water/deeplab101_d4-e80/version_0/epoch=21@val_mIoU=88.93@deeplab101_d4-GID_Water.ckpt`
 
 2. Write this path to `config/DPRNet/DPRNet_GR101_LR18.py` on:
+
    `global_net_ckpt_dict['stage1_GNet_pretrained'] = {ckpt path}`
 
 3. Set `global_net_ckpt_from = 'stage1_GNet_pretrained'`
@@ -190,8 +190,9 @@ Now you can re-execute the previous command, and the model will start training f
 Please train for dozens of epoches before continuing.
 
 
-PTDR usage: After `-c`, add: `config/repair_dataset/ex_pred_stat.py`,
-dataset must use **GID_Water_no_aug.py**.  add `-r {well-trained-ckpt}`, Eg.
+PTDR usage: After `-c`, add: `config/repair_dataset/ex_pred_stat.py`.
+
+Dataset must use `GID_Water_no_aug.py`.  add `-r {well-trained-ckpt}`, Eg.
 
 ```aiignore
 python train.py config/DPRNet/DPRNet_GR101_LR18.py \
