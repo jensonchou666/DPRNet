@@ -25,7 +25,7 @@ class GL_FFN(nn.Module):
                  local_channels,
                  blocks=2,
                  channel_ratio=1/2,
-                 pose_decoder_cls=FPNDecoder,
+                 pose_decoder_cls=FPNDecoder, #TODO 写错： pose -> post
                  decoder_args={},
                  ):
         '''
