@@ -17,7 +17,7 @@ repair_dataset_args = dict(
 )
 
 pred_stat_sample_size       =   10
-pred_stat_start_epoch       =   1  #? 至少40轮后再用此文件
+pred_stat_start_epoch       =   40  #? 至少40轮后再用此文件
 pred_stat_count_list_len    =   100
 pred_stat_min_value         =   0.6
 
