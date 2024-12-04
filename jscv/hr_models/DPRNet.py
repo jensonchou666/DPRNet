@@ -21,16 +21,16 @@ GRNet_easy_rate = 0.7
 
 class GL_FFN(nn.Module):
     def __init__(self, 
-                 global_channels, 
-                 local_channels,
+                 global_channels, # G-Branch-Decoder (2)
+                 local_channels, # L-Branch-Backbone (0,1,2,3,4)
                  blocks=2,
                  channel_ratio=1/2,
-                 pose_decoder_cls=FPNDecoder,
+                 post_decoder_cls=FPNDecoder,
                  decoder_args={},
                  ):
         '''
-            global: [s16, s32]
-            local: [s2, s4, s8, s16, s32]
+            global: [stride=32]
+            local: [stride=2, stride=4, stride=8, stride=16, stride=32]
         '''
         super().__init__()
         C2_g = global_channels
@@ -47,7 +47,7 @@ class GL_FFN(nn.Module):
                 self.layer1.append(ConvBNReLU(inc, outc, 3))
             self.layer1 = ResBlocks(*self.layer1)
 
-        self.pose_decoder=pose_decoder_cls(
+        self.post_decoder=post_decoder_cls(
             [C0_l, C1_l, C2_l, C3_l, outc],
             **decoder_args
         )
@@ -58,7 +58,7 @@ class GL_FFN(nn.Module):
         f4 = torch.concat([f4, g_fs], dim=1)
         if self.blocks > 0:
             f4 = self.layer1(f4)
-        return self.pose_decoder(f0, f1, f2, f3, f4)
+        return self.post_decoder(f0, f1, f2, f3, f4)
 
 
 
