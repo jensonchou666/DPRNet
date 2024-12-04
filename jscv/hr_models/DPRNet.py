@@ -25,11 +25,7 @@ class GL_FFN(nn.Module):
                  local_channels, # L-Branch-Backbone (0,1,2,3,4)
                  blocks=2,
                  channel_ratio=1/2,
-<<<<<<< HEAD
                  post_decoder_cls=FPNDecoder,
-=======
-                 pose_decoder_cls=FPNDecoder, #TODO 写错： pose -> post
->>>>>>> cf1a5d53f612d0de53e242f3244b410988966c44
                  decoder_args={},
                  ):
         '''
