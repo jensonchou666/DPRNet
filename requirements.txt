@@ -1,0 +1,16 @@
+torch
+torchvision
+timm
+albumentations
+numpy
+tqdm
+addict
+matplotlib
+pynvml
+catalyst
+thop
+dill
+kornia
+
+fvcore      # RMT
+
