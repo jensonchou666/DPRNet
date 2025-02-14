@@ -1,4 +1,4 @@
-#### 一个比较通用的语义分割模型训练的项目，自己独立开发。
+#### 一个比较通用的语义分割模型训练的项目，基于自己开发的jscv框架。
 主要发布了模型： **DPRNet** 《DPRNet: Dynamic Patch Refinement 
 Network for Water Body Extraction and UltraHigh Resolution Segmentation》
 论文后续发表
