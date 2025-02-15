@@ -5,7 +5,7 @@
 ---
 
 
-暂时不提供 环境搭建、模型训练等教程 (没时间写)
+暂时不提供 环境搭建、模型训练等教程 (现在没时间写，后面会出)
 
 训练模型的命令： `./easytrain.py config/DPR_WDCI_PVT_L.py -c config/GID_Water_3d5K_60e.py`
 
